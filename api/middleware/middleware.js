@@ -43,9 +43,7 @@ function validateProjectId(req, res, next) {
           next()
         }
       })
-      .catch(err => {
-        next(err)
-      })
+      .catch(next)
   }
 
 
