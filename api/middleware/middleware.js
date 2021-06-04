@@ -1,4 +1,7 @@
 const Project = require('../projects/projects-model')
+const Action = require('../actions/actions-model')
+
+//Projects Middleware
 
 function validateProjectId(req, res, next) {
     Project.get(req.params.id)
@@ -26,8 +29,29 @@ function validateProjectId(req, res, next) {
     }
   }
 
+  //Actions Middleware
+
+  function validateActionId(req, res, next) {
+    Action.get(req.params.id)
+      .then(action => {
+        if (!action) {
+          res.status(404).json({
+            error: 'action not found'
+          })
+        } else {
+          req.action = action
+          next()
+        }
+      })
+      .catch(err => {
+        next(err)
+      })
+  }
+
+
 
   module.exports = {
       validateProjectId,
       validateProject,
+      validateActionId,
   }
