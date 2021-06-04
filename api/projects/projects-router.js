@@ -1,6 +1,5 @@
 const express = require('express')
 const Projects = require('./projects-model')
-// const Actions = require('../actions/actions-model')
 
 const { validateProjectId, validateProject } = require('../middleware/middleware')
 
@@ -47,8 +46,12 @@ router.delete('/:id', validateProjectId, (req, res, next) => {
     .catch(next)
 })
 
-router.get('/', (req, res) => {
-    
+router.get('/:id/actions', validateProjectId, (req, res, next) => {
+  Projects.getProjectActions(req.params.id)
+    .then(action => {
+        res.status(200).json(action)
+    })
+    .catch(next)
 })
 
 module.exports = router;
