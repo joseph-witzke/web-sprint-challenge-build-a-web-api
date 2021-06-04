@@ -46,10 +46,20 @@ function validateProjectId(req, res, next) {
       .catch(next)
   }
 
+  function validateAction(req, res, next) {
+    if (!req.body.description || !req.body.notes || !req.body.project_id) {
+      res.status(400).json({message: 'missing required field' })
+    } else {
+      req.action = (req.body)
+      next( )
+    }
+  }
+
 
 
   module.exports = {
       validateProjectId,
       validateProject,
       validateActionId,
+      validateAction
   }
