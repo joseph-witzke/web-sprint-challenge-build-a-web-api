@@ -39,8 +39,12 @@ router.put('/:id', validateProjectId, validateProject, (req, res, next) => {
     .catch(next)
 })
 
-router.delete('/', (req, res) => {
-    
+router.delete('/:id', validateProjectId, (req, res, next) => {
+  Projects.remove(req.params.id)
+    .then(() => {
+        res.status(200).json({ message: 'The project has been exterminated! '})
+    })
+    .catch(next)
 })
 
 router.get('/', (req, res) => {
